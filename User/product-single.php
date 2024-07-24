@@ -4,41 +4,17 @@ session_start();
           $get_data = new data_user();
 if (isset($_SESSION['user'])) {
   $count = $get_data->count_Cart($_SESSION['user']);
+}else{
+  if(isset($_SESSION['cart'])){
+    $count = count($_SESSION['cart']);
+  }else{
+    $count = '0';
+  }
 }
  ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
-	<style>
-      .img-prod img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    aspect-ratio: 1/1; /* This will maintain a 1:1 aspect ratio */
-}
-
-.product {
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-    max-width: 300px; /* Adjust this to your preferred maximum width */
-    margin: auto;
-}
-
-.product .img-prod {
-    width: 100%;
-    height: 300px; /* Adjust this to your preferred height */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.product .img-prod img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-</style>
     <title>Vegefoods</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -78,7 +54,7 @@ if (isset($_SESSION['user'])) {
 	        <ul class="navbar-nav ml-auto">
 	          <li class="nav-item"><a href="index.php" class="nav-link">Trang chủ</a></li>
 	          <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle active" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cửa hàng</a>
+              <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cửa hàng</a>
               <div class="dropdown-menu" aria-labelledby="dropdown04">
               	<a class="dropdown-item" href="shop.php">Cửa hàng</a>
               	<a class="dropdown-item" href="wishlist.php">Danh sách yêu thích</a>
@@ -87,10 +63,7 @@ if (isset($_SESSION['user'])) {
 	          <li class="nav-item"><a href="about.php" class="nav-link">About</a></li>
 	          <li class="nav-item"><a href="blog.php" class="nav-link">Tin tức</a></li>
 	          <li class="nav-item"><a href="contact.php" class="nav-link">Liên hệ</a></li>
-	          <li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[<?php if (isset($_SESSION["user"])) {
-              echo $count;
-            } else
-              echo '0'; ?>]</a></li>
+	          <li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[<?php echo $count;?>]</a></li>
             <li class="nav-item dropdown">
               <?php if (isset($_SESSION["user"])) {
               ?>
@@ -204,40 +177,66 @@ if (isset($_SESSION['user'])) {
     </form>
 	<?php
 	if(isset($_POST['txtsub'])){
-	if(empty($_SESSION['user'])){
-    echo "<script>alert('Ban can dang nhap de thuc hien thao tac nay');
-    window.location=('sign-in.php')</script>";
-}else{
+	
     if(empty($_POST['quantity'])){
         echo "<script>alert('Vui lòng nhập đủ thông tin');</script>";
     } else {
 			foreach ($select_id_pro as $se) {
 				if ($_POST['quantity'] < 1 || $_POST['quantity'] > $se['quantity']) {
 					echo "<script>alert('Số lượng không phù hợp');</script>";
-				} else {
-					$id_pro = $_GET['id_pro'];
-					$quantity = $_POST['quantity'];
-					$update = $get_data->update_quantity_pro( $se['id_pro'], $se['quantity'] - $quantity);
-					$select_cart = $get_data->select_cart( $_SESSION['user']);
-					$found = false;
-					foreach($select_cart as $cart_item){
-					            if($cart_item['id_pro'] == $id_pro ){
-					                $new_total= $cart_item['total'] + $quantity*$cart_item['price'];
+					} else {
+						$id_pro = $_GET['id_pro'];
+						$quantity = $_POST['quantity'];
+						$update = $get_data->update_quantity_pro($se['id_pro'], $se['quantity'] - $quantity);
+						$new_product = array(
+							'id_pro' => $se['id_pro'],
+							'name' => $se['name_pro'],
+							'quantity' => $quantity,
+							'picture' => $se['image'],
+							'price' => $price_sale,
+							'total' => $price_sale * $quantity
+						);
+						if (isset($_SESSION['user'])) {
+							$select_cart = $get_data->select_cart($_SESSION['user']);
+							$found = false;
+							foreach ($select_cart as $cart_item) {
+								if ($cart_item['id_pro'] == $id_pro) {
+									$new_total = $cart_item['total'] + $quantity * $cart_item['price'];
 									$found = true;
-					                $updateResult = $get_data->update_cart_item($cart_item['id_pro'], $cart_item['quantity_order']+$quantity, $new_total,$_SESSION['user']);
-					                echo "<script>window.location=('cart.php')</script>";
+									$updateResult = $get_data->update_cart_item($cart_item['id_pro'], $cart_item['quantity_order'] + $quantity, $new_total, $_SESSION['user']);
+									echo "<script>window.location=('cart.php')</script>";
 									break;
-					            }
-					        }
-					        if(!$found){
-					            $insertResult = $get_data->insert_Cart($_SESSION['user'], $se['id_pro'], $se['name_pro'],$price_sale, $se['image'], $quantity, $price_sale*$quantity);
-					            echo "<script>window.location=('cart.php')</script>";
-					        }
-					    }
+								}
+							}
+
+							if (!$found) {
+								$insertResult = $get_data->insert_Cart($_SESSION['user'], $se['id_pro'], $se['name_pro'], $price_sale, $se['image'], $quantity, $price_sale * $quantity);
+								echo "<script>window.location=('cart.php')</script>";
+							}
+						}else if(isset($_SESSION['cart'])){
+							$found = false;
+							
+							foreach($_SESSION['cart'] as &$cart_item){
+                        	if($cart_item['id_pro'] == $id_pro){
+                            $cart_item['quantity'] += $quantity;
+        					$cart_item['total'] += $quantity * $cart_item['price'];
+                            $found = true;
+                            echo "<script>window.location=('cart.php')</script>";
+							break;
+                        }
+                    }
+					if($found==false){
+                        $_SESSION['cart'][] = $new_product;
+                        echo "<script>window.location=('cart.php')</script>";
+                    }
+						} else{
+                    	$_SESSION['cart'][] = $new_product;
+                        echo "<script>window.location=('cart.php')</script>";
+                }
+					}
 					}
 				}
 			}
-		}
 	 ?>
     <section class="ftco-section">
     	<div class="container">

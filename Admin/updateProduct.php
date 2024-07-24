@@ -11,7 +11,7 @@ if (empty($_SESSION['user'])) {
 <html lang="en">
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Datatables - Kaiadmin Bootstrap 5 Admin Dashboard</title>
+    <title>Product</title>
     <meta
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
       name="viewport"
@@ -84,53 +84,52 @@ if (empty($_SESSION['user'])) {
             <ul class="nav nav-secondary">
               <li class="nav-item">
                 <a
-                  data-bs-toggle="collapse"
                   href="index.php"
                   class="collapsed"
                   aria-expanded="false"
                 >
                   <i class="fas fa-home"></i>
-                  <p>Dashboard</p>
+                  <p>Trang chủ</p>
                 </a>
               </li>
               <li class="nav-section">
                 <span class="sidebar-mini-icon">
                   <i class="fa fa-ellipsis-h"></i>
                 </span>
-                <h4 class="text-section">Components</h4>
+                <h4 class="text-section">Quản lý</h4>
               </li>
                     <li class="nav-item">
                       <a href="Product.php">
                         <i class="icon-book-open"></i>
-                        <span class="sub-item">Product</span>
+                        <span class="sub-item">Sản phẩm</span>
                         
                       </a>
                     </li>
                     <li class="nav-item">
                       <a href="Category.php">
                         <i class="icon-menu"></i>
-                        <span class="sub-item">Category</span>
+                        <span class="sub-item">Danh mục</span>
                         
                       </a>
                     </li>
                     <li class="nav-item">
                       <a href="Contact.php">
                         <i class="icon-envelope"></i>
-                        <span class="sub-item">Contact</span>
+                        <span class="sub-item">Liên hệ</span>
                         
                       </a>
                     </li>
                     <li class="nav-item">
                       <a href="Order.php">
                         <i class="icon-calendar"></i>
-                        <span class="sub-item">Order</span>
+                        <span class="sub-item">Đơn đặt hàng</span>
                         
                       </a>
                     </li>
                     <li class="nav-item">
                       <a href="Report.php">
                         <i class="icon-chart"></i>
-                        <span class="sub-item">Report</span>
+                        <span class="sub-item">Báo cáo</span>
                         
                       </a>
                     </li>
@@ -271,7 +270,7 @@ if (empty($_SESSION['user'])) {
                         </div>
                       </li>
                       <li>
-                        <a class="dropdown-item" href="logout.php">Logout</a>
+                        <a class="dropdown-item" href="logout.php">Đăng xuất</a>
                       </li>
                     </div>
                   </ul>
@@ -292,7 +291,7 @@ if (empty($_SESSION['user'])) {
         <div class="col-md-9">
             <div class="card">
                 <div class="card-header">
-                    <div class="card-title">Update Product</div>
+                    <div class="card-title">Cập nhật sản phẩm</div>
                 </div>
                 <div class="card-body">
                     <?php
@@ -305,19 +304,19 @@ if (empty($_SESSION['user'])) {
                                     <form method="post" enctype="multipart/form-data">
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label>Product Name</label>
+                                                <label>Tên sản phẩm</label>
                                                 <input type="text" value="<?php echo $se_pro['name_pro']; ?>" class="form-control" name="txtname" placeholder="Product Name" />
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label>Quantity</label>
+                                                <label>Số lượng</label>
                                                 <input name="txtnum" value="<?php echo $se_pro['quantity']; ?>" type="number" class="form-control" placeholder="kilogram" required />
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label>Category</label>
+                                                <label>Danh mục hàng</label>
                                                 <select class="form-control" name="txtselect" required>
                                                     <?php
                                                     $select_cat = $get_data->select_cat();
@@ -331,43 +330,42 @@ if (empty($_SESSION['user'])) {
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label>Image</label>
+                                                <label>Ảnh</label>
                                                 <input name="txtpic" type="file" class="form-control" accept=".jpg, .jpeg, .png" required />
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label>Image Library</label>
+                                                <label>Thư viện ảnh</label>
                                                 <input type="file" id="images" class="form-control" name="albumImages[]" accept=".jpg, .jpeg, .png" multiple>
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label>Date</label>
+                                                <label>Ngày nhập</label>
                                                 <input value="<?php echo $se_pro['date']; ?>" class="form-control" type="date" name="txtdate" required>
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label>Price</label>
+                                                <label>Giá</label>
                                                 <input value="<?php echo $se_pro['price']; ?>" class="form-control" type="number" name="txtprice" placeholder="VNĐ" required>
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label>Sale</label>
+                                                <label>Giá khuyến mãi</label>
                                                 <input value="<?php echo $se_pro['price_sale']; ?>" class="form-control" type="number" name="txtpricesale" placeholder="VNĐ">
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label>Description</label>
+                                                <label>Mô tả</label>
                                                 <textarea class="form-control" rows="3" name="txtdes" required><?php echo $se_pro['description']; ?></textarea>
                                             </div>
                                         </div>
                                         <div class="modal-footer border-0">
-                                            <button type="submit" name="txtsub" class="btn btn-primary">Update</button>
-                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="closeButton">Close</button>
+                                            <button type="submit" name="txtsub" class="btn btn-primary">Cập nhật</button>
                                         </div>
                                     </form>
                                 </div>

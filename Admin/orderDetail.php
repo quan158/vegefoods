@@ -84,53 +84,52 @@ if (empty($_SESSION['user'])) {
             <ul class="nav nav-secondary">
               <li class="nav-item">
                 <a
-                  data-bs-toggle="collapse"
                   href="index.php"
                   class="collapsed"
                   aria-expanded="false"
                 >
                   <i class="fas fa-home"></i>
-                  <p>Dashboard</p>
+                  <p>Trang chủ</p>
                 </a>
               </li>
               <li class="nav-section">
                 <span class="sidebar-mini-icon">
                   <i class="fa fa-ellipsis-h"></i>
                 </span>
-                <h4 class="text-section">Components</h4>
+                <h4 class="text-section">Quản lý</h4>
               </li>
                     <li class="nav-item">
                       <a href="Product.php">
                         <i class="icon-book-open"></i>
-                        <span class="sub-item">Product</span>
+                        <span class="sub-item">Sản phẩm</span>
                         
                       </a>
                     </li>
                     <li class="nav-item">
                       <a href="Category.php">
                         <i class="icon-menu"></i>
-                        <span class="sub-item">Category</span>
+                        <span class="sub-item">Danh mục</span>
                         
                       </a>
                     </li>
                     <li class="nav-item">
                       <a href="Contact.php">
                         <i class="icon-envelope"></i>
-                        <span class="sub-item">Contact</span>
+                        <span class="sub-item">Liên hệ</span>
                         
                       </a>
                     </li>
                     <li class="nav-item">
                       <a href="Order.php">
                         <i class="icon-calendar"></i>
-                        <span class="sub-item">Order</span>
+                        <span class="sub-item">Đơn đặt hàng</span>
                         
                       </a>
                     </li>
                     <li class="nav-item">
                       <a href="Report.php">
                         <i class="icon-chart"></i>
-                        <span class="sub-item">Report</span>
+                        <span class="sub-item">Báo cáo</span>
                         
                       </a>
                     </li>
@@ -271,7 +270,7 @@ if (empty($_SESSION['user'])) {
                         </div>
                       </li>
                       <li>
-                        <a class="dropdown-item" href="logout.php">Logout</a>
+                        <a class="dropdown-item" href="logout.php">Đăng xuất</a>
                       </li>
                     </div>
                   </ul>
@@ -317,7 +316,9 @@ if (empty($_SESSION['user'])) {
                             <td><?php echo $se['id_pro'] ?></td>
                             <td><?php echo $se['name_pro'] ?></td>
                             <td><?php echo $se['quantity'] ?></td>
-                            <td><?php echo $se['total'] ?></td>
+                            <td><?php $price = $se['total'];
+                            $formatted_price = number_format($price, 0, ',', '.');
+                           echo $formatted_price . ' ₫'; ?></td>
                           </tr>
                           <?php } ?>
                         </tbody>

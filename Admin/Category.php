@@ -12,7 +12,7 @@ if (empty($_SESSION['user'])) {
 <html lang="en">
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Datatables - Kaiadmin Bootstrap 5 Admin Dashboard</title>
+    <title>Category</title>
     <meta
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
       name="viewport"
@@ -91,47 +91,47 @@ if (empty($_SESSION['user'])) {
                   aria-expanded="false"
                 >
                   <i class="fas fa-home"></i>
-                  <p>Dashboard</p>
+                  <p>Trang chủ</p>
                 </a>
               </li>
               <li class="nav-section">
                 <span class="sidebar-mini-icon">
                   <i class="fa fa-ellipsis-h"></i>
                 </span>
-                <h4 class="text-section">Components</h4>
+                <h4 class="text-section">Quản lý</h4>
               </li>
                     <li class="nav-item">
                       <a href="Product.php">
                         <i class="icon-book-open"></i>
-                        <span class="sub-item">Product</span>
+                        <span class="sub-item">Sản phẩm</span>
                         
                       </a>
                     </li>
                     <li class="nav-item">
                       <a href="Category.php">
                         <i class="icon-menu"></i>
-                        <span class="sub-item">Category</span>
+                        <span class="sub-item">Danh mục</span>
                         
                       </a>
                     </li>
                     <li class="nav-item">
                       <a href="Contact.php">
                         <i class="icon-envelope"></i>
-                        <span class="sub-item">Contact</span>
+                        <span class="sub-item">Liên hệ</span>
                         
                       </a>
                     </li>
                     <li class="nav-item">
                       <a href="Order.php">
                         <i class="icon-calendar"></i>
-                        <span class="sub-item">Order</span>
+                        <span class="sub-item">Đơn đặt hàng</span>
                         
                       </a>
                     </li>
                     <li class="nav-item">
                       <a href="Report.php">
                         <i class="icon-chart"></i>
-                        <span class="sub-item">Report</span>
+                        <span class="sub-item">Báo cáo</span>
                         
                       </a>
                     </li>
@@ -272,7 +272,7 @@ if (empty($_SESSION['user'])) {
                         </div>
                       </li>
                       <li>
-                        <a class="dropdown-item" href="logout.php">Logout</a>
+                        <a class="dropdown-item" href="logout.php">Đăng xuất</a>
                       </li>
                     </div>
                   </ul>
@@ -296,14 +296,14 @@ if (empty($_SESSION['user'])) {
                 <div class="card">
                   <div class="card-header">
                     <div class="d-flex align-items-center">
-                      <h4 class="card-title">Product</h4>
+                      <h4 class="card-title">Danh mục hàng</h4>
                       <button
                         class="btn btn-primary btn-round ms-auto"
                         data-bs-toggle="modal"
                         data-bs-target="#addRowModal"
                       >
                         <i class="fa fa-plus"></i>
-                        Add Category
+                        Thêm danh mục hàng
                       </button>
                     </div>
                   </div>
@@ -314,8 +314,8 @@ if (empty($_SESSION['user'])) {
             <div class="modal-content">
                 <div class="modal-header border-0">
                     <h5 class="modal-title">
-                        <span class="fw-mediumbold"> New</span>
-                        <span class="fw-light"> Category </span>
+                        <span class="fw-mediumbold"> Thêm</span>
+                        <span class="fw-light"> Danh mục hàng </span>
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -326,20 +326,20 @@ if (empty($_SESSION['user'])) {
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group form-group-default">
-                                    <label>Category Name</label>
+                                    <label>Tên danh mục</label>
                                     <input name="txtname" type="text" class="form-control" placeholder="name" required />
                                 </div>
                             </div>
                             <div class="col-sm-12">
                                 <div class="form-group form-group-default">
-                                    <label>Description</label>
+                                    <label>Mô tả</label>
                                     <textarea class="form-control" rows="3" name="txtdes" required></textarea>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer border-0">
-                            <button type="submit" name="txtsub" class="btn btn-primary" id = "btnSub">Add</button>
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="closeButton">Close</button>
+                            <button type="submit" name="txtsub" class="btn btn-primary" id = "btnSub">Thêm</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="closeButton">Đóng</button>
                         </div>
                     </form>
                 </div>
@@ -376,9 +376,9 @@ if (empty($_SESSION['user'])) {
                         <thead>
                           <tr>
                             <th>STT</th>
-                            <th>Name Product</th>
-                            <th>Description</th>
-                            <th style="width: 10%">Action</th>
+                            <th>Tên danh mục</th>
+                            <th>Mô tả</th>
+                            <th style="width: 10%">Hành động</th>
                           </tr>
                         </thead>
                         <tbody>

@@ -12,7 +12,7 @@ if (empty($_SESSION['user'])) {
 <html lang="en">
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Datatables - Kaiadmin Bootstrap 5 Admin Dashboard</title>
+    <title>Trang chủ</title>
     <meta
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
       name="viewport"
@@ -91,47 +91,47 @@ if (empty($_SESSION['user'])) {
                   aria-expanded="false"
                 >
                   <i class="fas fa-home"></i>
-                  <p>Dashboard</p>
+                  <p>Trang chủ</p>
                 </a>
               </li>
               <li class="nav-section">
                 <span class="sidebar-mini-icon">
                   <i class="fa fa-ellipsis-h"></i>
                 </span>
-                <h4 class="text-section">Components</h4>
+                <h4 class="text-section">Quản lý</h4>
               </li>
                     <li class="nav-item">
                       <a href="Product.php">
                         <i class="icon-book-open"></i>
-                        <span class="sub-item">Product</span>
+                        <span class="sub-item">Sản phẩm</span>
                         
                       </a>
                     </li>
                     <li class="nav-item">
                       <a href="Category.php">
                         <i class="icon-menu"></i>
-                        <span class="sub-item">Category</span>
+                        <span class="sub-item">Danh mục</span>
                         
                       </a>
                     </li>
                     <li class="nav-item">
                       <a href="Contact.php">
                         <i class="icon-envelope"></i>
-                        <span class="sub-item">Contact</span>
+                        <span class="sub-item">Liên hệ</span>
                         
                       </a>
                     </li>
                     <li class="nav-item">
                       <a href="Order.php">
                         <i class="icon-calendar"></i>
-                        <span class="sub-item">Order</span>
+                        <span class="sub-item">Đơn đặt hàng</span>
                         
                       </a>
                     </li>
                     <li class="nav-item">
                       <a href="Report.php">
                         <i class="icon-chart"></i>
-                        <span class="sub-item">Report</span>
+                        <span class="sub-item">Báo cáo</span>
                         
                       </a>
                     </li>
@@ -272,7 +272,7 @@ if (empty($_SESSION['user'])) {
                         </div>
                       </li>
                       <li>
-                        <a class="dropdown-item" href="logout.php">Logout</a>
+                        <a class="dropdown-item" href="logout.php">Đăng xuất</a>
                       </li>
                     </div>
                   </ul>
@@ -309,7 +309,7 @@ if (empty($_SESSION['user'])) {
                       <div class="col col-stats ms-3 ms-sm-0">
                         <div class="numbers">
                           <p class="card-category">
-                            Customers</p>
+                            Khách hàng</p>
                           <h4 class="card-title"><?php $select = $get_user->select_user();
                           $num_rows = mysqli_num_rows($select);
                           echo $num_rows;
@@ -333,7 +333,7 @@ if (empty($_SESSION['user'])) {
                       </div>
                       <div class="col col-stats ms-3 ms-sm-0">
                         <div class="numbers">
-                          <p class="card-category">Sales</p>
+                          <p class="card-category">Tổng bán</p>
                           <h4 class="card-title"><?php $select_sale = $get_data->select_sale();
                           $sales = 0;
                           foreach($select_sale as $se){
@@ -360,7 +360,7 @@ if (empty($_SESSION['user'])) {
                       </div>
                       <div class="col col-stats ms-3 ms-sm-0">
                         <div class="numbers">
-                          <p class="card-category">Order</p>
+                          <p class="card-category">Đơn đặt hàng</p>
                           <h4 class="card-title"><?php $select_order = $get_data->select_order();
                           $num_rows = mysqli_num_rows($select_order);
                           echo $num_rows; ?></h4>
@@ -423,7 +423,7 @@ var myChart = new Chart(ctx, {
                 <div class="card card-round">
                   <div class="card-body">
                     <div class="card-head-row card-tools-still-right">
-                      <div class="card-title">New Customers</div>
+                      <div class="card-title">Khách hàng mới</div>
                     </div>
                     <div class="card-list py-4">
                       <?php $select_user = $get_user->select_user_top();

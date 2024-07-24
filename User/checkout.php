@@ -5,8 +5,11 @@ session_start();
 if (isset($_SESSION['user'])) {
   $count = $get_data->count_Cart($_SESSION['user']);
 }else{
-  echo "<script>alert('Bạn cần đăng nhập để thực hiện thao tác này');
-    window.location = 'sign-in.php';</script>";
+  if(isset($_SESSION['cart'])){
+    $count = count($_SESSION['cart']);
+  }else{
+    $count = '0';
+  }
 }
  ?>
 <!DOCTYPE html>
@@ -49,7 +52,7 @@ if (isset($_SESSION['user'])) {
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item active"><a href="index.php" class="nav-link">Trang chủ</a></li>
+	          <li class="nav-item"><a href="index.php" class="nav-link">Trang chủ</a></li>
 	          <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cửa hàng</a>
               <div class="dropdown-menu" aria-labelledby="dropdown04">
@@ -60,10 +63,7 @@ if (isset($_SESSION['user'])) {
 	          <li class="nav-item"><a href="about.php" class="nav-link">About</a></li>
 	          <li class="nav-item"><a href="blog.php" class="nav-link">Tin tức</a></li>
 	          <li class="nav-item"><a href="contact.php" class="nav-link">Liên hệ</a></li>
-	          <li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[<?php if (isset($_SESSION["user"])) {
-              echo $count;
-            } else
-              echo '0'; ?>]</a></li>
+	          <li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[<?php echo $count;?>]</a></li>
             <li class="nav-item dropdown">
               <?php if (isset($_SESSION["user"])) {
               ?>
@@ -105,6 +105,7 @@ if (isset($_SESSION['user'])) {
               <h3 class="mb-4 billing-heading">Chi tiết thanh toán</h3>
               <div class="row align-items-end">
                 <div class="col-md-12">
+                  <?php if(isset($_SESSION['user'])){ ?>
                  <div class="form-group">
                     <label>Địa chỉ nhận hàng</label>
                     <select class="form-control" name="diachi" id="diachi">
@@ -125,8 +126,20 @@ if (isset($_SESSION['user'])) {
                     <label>Số điện thoại</label>
                     <input type="text" name="txtPhone" class="form-control" id="sdtNguoiNhan" readonly>
                 </div>
-
-
+                <?php }else{ ?>
+                  <div class="form-group">
+                    <label>Địa chỉ nhận hàng</label>
+                    <input type="text" name="diachi" class="form-control" >
+                </div>
+                <div class="form-group">
+                    <label>Người nhận</label>
+                    <input type="text" name="txtname" class="form-control" >
+                </div>
+                <div class="form-group">
+                    <label>Số điện thoại</label>
+                    <input type="text" name="txtPhone" class="form-control">
+                </div>
+                <?php } ?>
                 </div>
                 <div class="w-100"></div>
                 <div class="cart-detail p-3 p-md-4">
@@ -155,31 +168,32 @@ if (isset($_SESSION['user'])) {
             <div class="row mt-5 pt-3">
               <div class="col-md-12 d-flex mb-5">
                 <div class="cart-detail cart-total p-3 p-md-4">
-					<?php 
-					$select_cart = $get_data->select_Cart($_SESSION["user"]) ;
-					?>
+					<?php
+          if (isset($_SESSION['user'])) {
+            $select_cart = $get_data->select_Cart($_SESSION["user"]);
+            ?>
                   <h3 class="billing-heading mb-4">Tổng giỏ hàng</h3>
                   <p class="d-flex">
                     <span>Tổng phụ</span>
                     <span><?php $subTotal = 0;
-                 foreach($select_cart as $se_cart){
-                  $subTotal =$subTotal + $se_cart['total'];
-                } 
-                $formatted_price = number_format($subTotal, 0, ',', '.'); 
-                echo $formatted_price . ' ₫' ;  ?></span>
+                    foreach ($select_cart as $se_cart) {
+                      $subTotal = $subTotal + $se_cart['total'];
+                    }
+                    $formatted_price = number_format($subTotal, 0, ',', '.');
+                    echo $formatted_price . ' ₫'; ?></span>
                   </p>
                   <p class="d-flex">
                     <span>Vận chuyển</span>
-                    <span><?php $Discount = 30000; 
-                            $formatted_price = number_format($Discount, 0, ',', '.'); 
-                            echo $formatted_price . ' ₫' ?></span>
+                    <span><?php $Discount = 30000;
+                    $formatted_price = number_format($Discount, 0, ',', '.');
+                    echo $formatted_price . ' ₫' ?></span>
                   </p>
                   <hr>
                   <p class="d-flex total-price">
                     <span>Tổng</span>
                     <span><?php $total = $subTotal + $Discount;
-					$formatted_price = number_format($total, 0, ',', '.'); 
-                            echo $formatted_price . ' ₫' ?></span>
+                    $formatted_price = number_format($total, 0, ',', '.');
+                    echo $formatted_price . ' ₫' ?></span>
                   </p>
 				  <p class="d-flex total-price">
                   </p>
@@ -187,14 +201,53 @@ if (isset($_SESSION['user'])) {
 				  <br>
 				  <h3 class="billing-heading mb-4">Mặt hàng</h3>
 				  <?php
-				  foreach($select_cart as $se): ?>
+          foreach ($select_cart as $se): ?>
                   <p class="d-flex">
                     <span><img width="100px" height="100px" src="../Admin/upload/<?php echo $se['picture'] ?>" alt="<?php echo $se['name_pro'] ?>"></span>
                     <span><?php echo $se['name_pro'] ?><br>
 				<span>Số lượng: <?php echo $se['quantity_order'] ?></span></span>
                   </p>
 				  <hr>
-				  <?php endforeach; ?>
+				  <?php endforeach;
+          }else{ ?>
+            <h3 class="billing-heading mb-4">Tổng giỏ hàng</h3>
+                  <p class="d-flex">
+                    <span>Tổng phụ</span>
+                    <span><?php $subTotal = 0;
+                    foreach ($_SESSION['cart'] as $se_cart) {
+                      $subTotal = $subTotal + $se_cart['total'];
+                    }
+                    $formatted_price = number_format($subTotal, 0, ',', '.');
+                    echo $formatted_price . ' ₫'; ?></span>
+                  </p>
+                  <p class="d-flex">
+                    <span>Vận chuyển</span>
+                    <span><?php $Discount = 30000;
+                    $formatted_price = number_format($Discount, 0, ',', '.');
+                    echo $formatted_price . ' ₫' ?></span>
+                  </p>
+                  <hr>
+                  <p class="d-flex total-price">
+                    <span>Tổng</span>
+                    <span><?php $total = $subTotal + $Discount;
+                    $formatted_price = number_format($total, 0, ',', '.');
+                    echo $formatted_price . ' ₫' ?></span>
+                  </p>
+				  <p class="d-flex total-price">
+                  </p>
+				  <br>
+				  <br>
+				  <h3 class="billing-heading mb-4">Mặt hàng</h3>
+				  <?php
+          foreach ($_SESSION['cart'] as $se): ?>
+                  <p class="d-flex">
+                    <span><img width="100px" height="100px" src="../Admin/upload/<?php echo $se['picture'] ?>" alt="<?php echo $se['name'] ?>"></span>
+                    <span><?php echo $se['name'] ?><br>
+				<span>Số lượng: <?php echo $se['quantity'] ?></span></span>
+                  </p>
+				  <hr>
+          <?php endforeach;
+          } ?>
                 </div>
               </div>
             </div>
@@ -209,16 +262,31 @@ if (isset($_SESSION['user'])) {
       $address = $_POST['diachi'];
 			$pay = $_POST['optradio'];
 			$status = "Chờ";
-			$insert = $get_data->insert_Order($_SESSION['user'], $name,$phone, $address, $total, $pay,$status);
+    if (isset($_SESSION['user'])) {
+      $insert = $get_data->insert_Order($_SESSION['user'], $name, $phone, $address, $total, $pay, $status);
+    } else {
+      $insert = $get_data->insert_Order(null,$name, $phone, $address, $total, $pay, $status);
+    }
 		if ($insert) {
-			foreach ($select_cart as $se) {
-				$insert_order = $get_data->insert_Order_Detail($insert, $se['id_pro'], $se['name_pro'], $se['quantity_order'], $se['total']);
-			}
-				if ($insert_order) {
-					$delete = $get_data->delete_All_Cart($_SESSION['user']) ;
-					echo "<script>alert('Đặt hàng thành công');
-					window.location=(shop.php)</script>";
-				}
+      if (isset($_SESSION['user'])) {
+        foreach ($select_cart as $se) {
+          $insert_order = $get_data->insert_Order_Detail($insert, $se['id_pro'], $se['name_pro'], $se['quantity_order'], $se['total']);
+        }
+        if ($insert_order) {
+          $delete = $get_data->delete_All_Cart($_SESSION['user']);
+          echo "<script>alert('Đặt hàng thành công');
+					window.location=('shop.php')</script>";
+        }
+      }else{
+        foreach ($_SESSION['cart'] as $se) {
+          $insert_order = $get_data->insert_Order_Detail($insert, $se['id_pro'], $se['name'], $se['quantity'], $se['total']);
+        }
+        if ($insert_order) {
+          session_destroy();
+          echo "<script>alert('Đặt hàng thành công');
+					window.location=('shop.php')</script>";
+        }
+      }
 		} else {
 			echo "<script>alert('Vui lòng kiểm tra lại đơn đặt hàng')</script>";
 		}
