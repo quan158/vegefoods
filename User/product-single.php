@@ -16,6 +16,17 @@ if (isset($_SESSION['user'])) {
 <html lang="en">
   <head>
     <title>Vegefoods</title>
+	<style>
+		#main-image {
+    width: 600px; /* Set the desired width */
+    height: 500px; /* Set the desired height */
+    object-fit: cover; /* Ensure the image covers the specified dimensions */
+}
+
+img {
+    cursor: pointer; /* Make it clear that the thumbnails are clickable */
+}
+	</style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -108,7 +119,7 @@ if (isset($_SESSION['user'])) {
 						$additional_images = $get_data->get_additional_images($pro['id_pro']);
 					?>
 	    			<div class="col-lg-6 mb-5 ftco-animate">
-                    <a id="main-image-link" href="../Admin/upload/<?php echo $pro['image'] ?>" class="image-popup">
+                    <a id="main-image-link" width="500px" height="500px" href="../Admin/upload/<?php echo $pro['image'] ?>" class="image-popup">
                         <img id="main-image" class="img-fluid main-image" src="../Admin/upload/<?php echo $pro['image'] ?>" alt="<?php echo $pro['name_pro'] ?>">
                     </a>
                     <div class="additional-images mt-2 d-flex ">

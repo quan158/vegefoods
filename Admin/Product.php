@@ -475,9 +475,11 @@ if (empty($_SESSION['user'])) {
                             <td><?php $price = $se_pro['price'];
                             $formatted_price = number_format($price, 0, ',', '.');
                            echo $formatted_price . ' ₫'; ?></td>
-                            <td><?php $price = $se_pro['price_sale'];
-                            $formatted_price = number_format($price, 0, ',', '.');
-                           echo $formatted_price . ' ₫'; ?></td>
+                            <td><?php if (isset($se_pro['price_sale']) && !empty($se_pro['price_sale'])) {
+                              $price = $se_pro['price_sale'];
+                              $formatted_price = number_format($price, 0, ',', '.');
+                              echo $formatted_price . ' ₫';
+                            }?></td>
                             <td><?php echo $se_pro['description'] ?></td>
                             <td>
                               <div class="form-button-action">
