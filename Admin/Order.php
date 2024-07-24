@@ -369,7 +369,7 @@ if (empty($_SESSION['user'])) {
                             <td><?php echo $se['date'] ?></td>
                             <td><?php $price = $se['total_order'];
                             $formatted_price = number_format($price, 0, ',', '.');
-                           echo $formatted_price . ' ₫'; ?> ?></td>
+                           echo $formatted_price . ' ₫'; ?></td>
                             <td><?php echo $se['payment'] ?></td>
                             <td><?php echo $se['status'] ?></td>
                             <td>
