@@ -104,7 +104,7 @@ if (isset($_SESSION['user'])) {
               	<a class="dropdown-item" href="logout.php">Đăng xuất</a>
               </div>
               <?php } else { ?>
-              <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tàu khoản</a>
+              <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tài khoản</a>
               <div class="dropdown-menu" aria-labelledby="dropdown04">
               	<a class="dropdown-item" href="sign-up.php">Đăng ký</a>
               	<a class="dropdown-item" href="sign-in.php">Đăng nhập</a>
@@ -211,9 +211,7 @@ if (isset($_SESSION['user'])) {
 	    							<a href="product-single.php?id_pro=<?php echo $pro['id_pro'] ?>" class="add-to-cart d-flex justify-content-center align-items-center text-center">
 	    								<span><i class="ion-ios-menu"></i></span>
 	    							</a>
-	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-	    								<span><i class="ion-ios-cart"></i></span>
-	    							</a>
+                    &nbsp;
 	    							<a href="#" class="heart d-flex justify-content-center align-items-center ">
 	    								<span><i class="ion-ios-heart"></i></span>
 	    							</a>

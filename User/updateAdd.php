@@ -15,42 +15,18 @@ if (isset($_SESSION['user'])) {
 <!DOCTYPE html>
 <html lang="en">
   <head>
-       <style>
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 20px 0;
-        font-size: 18px;
-        text-align: left;
-      }
-      table thead th {
-        background-color: #f2f2f2;
-        padding: 10px;
-        border: 1px solid #ddd;
-      }
-      table tbody tr:nth-child(even) {
-        background-color: #f9f9f9;
-      }
-      table tbody tr:hover {
-        background-color: #f1f1f1;
-      }
-      table tbody td {
-        padding: 10px;
-        border: 1px solid #ddd;
-      }
-      table th, table td {
-        text-align: center;
-      }
-      .btn-primary {
-        background-color: #82ae46;
-        border-color: #82ae46;
-      }
-      .btn-primary:hover {
-        background-color: #6d8f39;
-        border-color: #6d8f39;
-      }
-    </style>
     <title>Vegefoods</title>
+	<style>
+		#main-image {
+    width: 600px; /* Set the desired width */
+    height: 500px; /* Set the desired height */
+    object-fit: cover; /* Ensure the image covers the specified dimensions */
+}
+
+img {
+    cursor: pointer; /* Make it clear that the thumbnails are clickable */
+}
+	</style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -108,7 +84,7 @@ if (isset($_SESSION['user'])) {
               	<a class="dropdown-item" href="logout.php">Đăng xuất</a>
               </div>
               <?php } else { ?>
-              <a class="nav-link dropdown-toggle active" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tài khoản</a>
+              <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tài khoản</a>
               <div class="dropdown-menu" aria-labelledby="dropdown04">
               	<a class="dropdown-item" href="sign-up.php">Đăng ký</a>
               	<a class="dropdown-item" href="sign-in.php">Đăng nhập</a>
@@ -125,164 +101,57 @@ if (isset($_SESSION['user'])) {
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
-          	<p class="breadcrumbs"><span class="mr-2"><a href="index.php">Home</a></span></p>
-            <h1 style="font-family:Arial, Helvetica, sans-serif; color:white; font-size:60px;">Tài khoản của bạn</h1>
+          	<p class="breadcrumbs"><span class="mr-2"><a href="index.php">Home</a></span> <span class="mr-2"><a href="index.php">Address</a></span></p>
+            <h1 class="mb-0 bread">Update</h1>
           </div>
         </div>
       </div>
     </div>
-    <section class="ftco-section ftco-no-pb ftco-no-pt bg-light">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-4 p-md-5 justify-content-center align-items-center">
-                        <h2>Tài khoản</h2>
-						<ul>
-                        <li><a href="taikhoan.php?account">Thông tin tài khoản</a></li>
-                        <li><a href="taikhoan.php?address">Danh sách địa chỉ</a></li>
-                    </ul>
-					</div>
-					<div class="col-md-7 py-5 wrap-about pb-md-5 ftco-animate">
-             <?php
-             if (isset($_GET['address'])) {
-               if (isset($_GET['insert'])) { ?>
-                <div class="page-inner">
+    <div class="col-md-9 py-7 wrap-about pb-md-5 ftco-animate">
+            <div class="page-inner">
                   <h3 class="mb-4 billing-heading">Thông tin nhận hàng</h3>
                   <form action="#" method="post" class="billing-form">
                       <div class="row align-items-end">
+                        <?php $select_add = $get_data->select_add_id($_SESSION['user'],$_GET['id_add']);
+                        foreach($select_add as $se): ?>
                           <div class="col-md-6">
                               <div class="form-group">
-                                  <label for="firstname">Tên</label>
-                                  <input type="text" class="form-control" name="txtFName" required>
+                                  <label for="firstname">Tên người nhận</label>
+                                  <input type="text" class="form-control" value="<?php echo $se['name_custommer'] ?>" name="txtFName" required>
                               </div>
                           </div>
-                          <div class="col-md-6">
-                              <div class="form-group">
-                                  <label for="lastname">Họ</label>
-                                  <input type="text" class="form-control" name="txtLName" required>
-                              </div>
-                          </div>
+                          
                           <div class="w-100"></div>
                           <div class="col-md-6">
                               <div class="form-group">
-                                  <label for="streetaddress">Tên đường, số nhà</label>
-                                  <input type="text" name="txtAdd1" class="form-control" required>
+                                  <label for="streetaddress">Địa chỉ</label>
+                                  <input type="text" name="txtAdd1" value="<?php echo $se['address'] ?>" class="form-control" required>
                               </div>
                           </div>
+                                                    <div class="w-100"></div>
                           <div class="col-md-6">
                               <div class="form-group">
-                                  <label for="address">Quận/Huyện</label>
-                                  <input name="txtAdd2" type="text" class="form-control" required>
+                                  <label for="address">Số điện thoại</label>
+                                  <input name="phone" type="text" value="<?php echo $se['phone'] ?>" class="form-control" required>
                               </div>
                           </div>
-                          <div class="w-100"></div>
-                          <div class="col-md-6">
-                              <div class="form-group">
-                                  <label for="towncity">Thành phố/Tỉnh</label>
-                                  <input name="txtAdd3" type="text" class="form-control" required>
-                              </div>
-                          </div>
-                          <div class="col-md-6">
-                              <div class="form-group">
-                                  <label for="phone">Số điện thoại</label>
-                                  <input type="text" name="txtPhone" class="form-control" required>
-                              </div>
-                          </div>
-                          <p><input type="submit" name="txtsub" value="Thêm địa chỉ" class="btn btn-primary py-3 px-4"></p>
+                                                    <div class="w-100"></div>
+                          <p><input type="submit" name="txtsub" value="Cập nhật" class="btn btn-primary py-3 px-4"></p>
+                          <?php endforeach; ?>
                       </div>
                   </form>
               </div>
-               <?php
-                if(isset($_POST['txtsub'])){
-                  $name = $_POST['txtLName'] . ' ' . $_POST['txtFName'];
-                  $address = $_POST['txtAdd1'] . ', ' . $_POST['txtAdd2'] . ', ' . $_POST['txtAdd3'];
-                  $phone = $_POST['txtPhone'];
-                  $user_id = $_SESSION['user'];
-                  $insert_add = $get_data->insert_address($user_id,$name,$phone, $address);
-                  if($insert_add){
-                      echo "<script>alert('Thêm địa chỉ thành công'); window.location='taikhoan.php?address';</script>";
+              </div>
+              <?php 
+              if(isset($_POST['txtsub'])){
+                $update = $get_data->update_add_id($_SESSION['user'],$_GET['id_add'],$_POST['txtFName'],$_POST['phone'], $_POST['txtAdd1']);
+                  if ($update) {
+                    echo "<script>alert('Cập nhật thành công');
+                    window.location=('taikhoan.php?address')</script>";
                   } else {
-                      echo "<script>alert('Vui lòng kiểm tra lại thông tin');</script>";
+                     echo "<script>alert('Cập nhật thất bại')</script>";
                   }
-              }
-	           } else {
-                 $select_add = $get_data->select_address($_SESSION['user']) ?>
-                <div class="pb-md-5">
-                  <table style="text-align: center;">
-                    <thead>
-                        <tr>
-                            <th>Tên người nhận</th>
-                            <th>Số điện thoại</th>
-                            <th>Địa chỉ</th>
-                            <th colspan="2" style="width: 20%">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                      <?php foreach ($select_add as $se_add): ?>
-                        <tr>
-                            <td><?php echo $se_add['name_custommer'] ?></td>
-                            <td><?php echo $se_add['phone'] ?></td>
-                            <td><?php echo $se_add['address'] ?></td>
-                          
-                                  <td><a href="updateAdd.php?id_add=<?php echo $se_add['id_address'] ?>" >Update</a></td>
-                                 <td><a style="color: red;" href="deleteAdd.php?del=<?php echo $se_add['id_address'] ?>" >Delete</a></td>
-                        </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="pb-md-5">
-                  <a href="taikhoan.php?address&insert">Thêm địa chỉ</a>
-                </div>
-             <?php }
-             } else { ?>
-	          <div class="heading-section-bold mb-4 mt-md-5">
-	          	<div class="ml-md-0">
-		            <h3>Thông tin tài khoản</h3>
-	            </div>
-	          </div>
-	          <div class="pb-md-5">
-                <?php
-                $select = $get_data->select_user($_SESSION['user']);
-                foreach ($select as $se) { ?>
-	          	<p><strong>Tên tài khoản: </strong><?php echo $se['username']; ?></p>
-                    <p><strong>Số điện thoại: </strong><?php echo $se['phone']; ?></p>
-                    <p><strong>Email: </strong><?php echo $se['email']; ?></p>
-                    <?php } ?>
-						</div>
-            <div class="pb-md-12">
-                <h3>Danh sách đơn hàng</h3>
-                <table >
-                    <thead>
-                        <tr>
-                            <th>Mã đơn hàng</th>
-                            <th>Ngày đặt</th>
-                            <th>Thành tiền</th>
-                            <th>Phương thức thanh toán</th>
-                            <th>Trạng thái</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                      <?php $select_or = $get_data->select_order($_SESSION['user']);
-                      foreach( $select_or as $se_or ): ?>
-                        <tr>
-                            <td><a href="#">#<?php echo $se_or['id_order'] ?></a></td>
-                            <td><?php echo $se_or['date'] ?></td>
-                            <td><?php echo $se_or['total_order'] ?></td>
-                            <td><?php echo $se_or['payment'] ?></td>
-                            <td><?php echo $se_or['status'] ?></td>
-                        </tr>
-                      <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
-            <?php  } ?>
-        </div>
-					</div>
-				</div>
-			</div>
-		</section>
-
-            
+              } ?>
     <footer class="ftco-footer ftco-section">
       <div class="container">
       	<div class="row">
@@ -337,7 +206,7 @@ if (isset($_SESSION['user'])) {
             	<h2 class="ftco-heading-2">Have a Questions?</h2>
             	<div class="block-23 mb-3">
 	              <ul>
-	                <li><span class="icon icon-map-marker"></span><span class="text">218, Minh Khai, Hai Bà Trưng, Hà Nội</span></li>
+	                <<li><span class="icon icon-map-marker"></span><span class="text">218, Minh Khai, Hai Bà Trưng, Hà Nội</span></li>
 	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+0369852147</span></a></li>
 	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">quan@gmail.com</span></a></li>
 	              </ul>

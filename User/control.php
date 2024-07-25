@@ -189,5 +189,25 @@ class data_user
         $run = mysqli_query($conn, $sql);
         return $run;
     }
+    public function select_add_id($user, $id)
+    {
+        global $conn;
+        $sql = "SELECT * FROM address WHERE username= '$user' and id_address='$id'";
+        $run = mysqli_query($conn, $sql);
+        return $run;
+    }
+    public function update_add_id($user, $id, $name, $phone, $address)
+    {
+        global $conn;
+        $sql = "UPDATE address SET name_custommer='$name', phone='$phone', address='$address' WHERE username= '$user' and id_address='$id' ";
+        $run = mysqli_query($conn, $sql);
+        return $run;
+    }
+    public function delete_add_id($user, $id){
+        global $conn;
+        $sql = "DELETE FROM address WHERE username= '$user' and id_address='$id'";
+        $run = mysqli_query($conn, $sql);
+        return $run;
+    }
 }
 ?>
