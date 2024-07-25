@@ -101,7 +101,7 @@ img {
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
-          	<p class="breadcrumbs"><span class="mr-2"><a href="index.php">Home</a></span> <span class="mr-2"><a href="index.php">Product</a></span> <span>Product Single</span></p>
+          	<p class="breadcrumbs"><span class="mr-2"><a href="index.php">Trang chủ</a></span> <span class="mr-2"><a href="index.php">Sản phẩm</a></span> <span>Chi tiết sản phẩm</span></p>
             <h1 class="mb-0 bread">Chi tiết sản phẩm</h1>
           </div>
         </div>
@@ -119,7 +119,7 @@ img {
 						$additional_images = $get_data->get_additional_images($pro['id_pro']);
 					?>
 	    			<div class="col-lg-6 mb-5 ftco-animate">
-                    <a id="main-image-link" width="500px" height="500px" href="../Admin/upload/<?php echo $pro['image'] ?>" class="image-popup">
+                    <a id="main-image-link" href="../Admin/upload/<?php echo $pro['image'] ?>" class="image-popup">
                         <img id="main-image" class="img-fluid main-image" src="../Admin/upload/<?php echo $pro['image'] ?>" alt="<?php echo $pro['name_pro'] ?>">
                     </a>
                     <div class="additional-images mt-2 d-flex ">
@@ -141,10 +141,10 @@ img {
 									<a href="#"><span class="ion-ios-star-outline"></span></a>
 								</p>
 								<p class="text-left mr-4">
-									<a href="#" class="mr-2" style="color: #000;">100 <span style="color: #bbb;">Rating</span></a>
+									<a href="#" class="mr-2" style="color: #000;">100 <span style="color: #bbb;">Đánh giá</span></a>
 								</p>
 								<p class="text-left">
-									<a href="#" class="mr-2" style="color: #000;">500 <span style="color: #bbb;">Sold</span></a>
+									<a href="#" class="mr-2" style="color: #000;">500 <span style="color: #bbb;">Đã bán</span></a>
 								</p>
 							</div>
 	    				<p class="price"><?php if (isset($pro['price_sale'])) { ?><span class="price-sale"><?php
@@ -176,11 +176,11 @@ img {
 		          	</div>
 		          	<div class="w-100"></div>
 		          	<div class="col-md-12">
-		          		<p style="color: #000;"><?php echo $pro['quantity']." kg available" ?></p>
+		          		<p style="color: #000;"><?php echo "Còn ". $pro['quantity']."kg" ?></p>
 		          	</div>
 					<?php } ?>
 	          	</div>
-	          	<input class="btn btn-primary py-3 px-5" type="submit" name="txtsub" value="Add to Cart"></input>
+	          	<input class="btn btn-primary py-3 px-5" type="submit" name="txtsub" value="Thêm vào giỏ"></input>
 	    			</div>
 	    		</div>
 	    	</div>
@@ -273,7 +273,7 @@ img {
     			<div class="col-md-6 col-lg-3 ftco-animate">
     				<div class="product">
     					<a href="product-single.php?id_pro=<?php echo $pro['id_pro'] ?>" class="img-prod"><img class="img-fluid" src="../Admin/upload/<?php echo $pro['image'] ?>  " alt="<?php echo $pro['name_pro'] ?>">
-    					<p class="price"><?php if (isset($pro['price_sale'])) { ?><span class="status"><?php echo (100 * ($pro['price'] - $pro['price_sale'])) / $pro['price'] ?>%</span>	<?php } ?>
+    					<p class="price"><?php if (isset($pro['price_sale'])) { ?><span class="status"><?php echo round((100 * ($pro['price'] - $pro['price_sale'])) / $pro['price']); ?>%</span>	<?php } ?>
               <div class="overlay"></div>
     					</a>
     					<div class="text py-3 pb-4 px-3 text-center">
@@ -311,18 +311,11 @@ img {
 
     <footer class="ftco-footer ftco-section">
       <div class="container">
-      	<div class="row">
-      		<div class="mouse">
-						<a href="#" class="mouse-icon">
-							<div class="mouse-wheel"><span class="ion-ios-arrow-up"></span></div>
-						</a>
-					</div>
-      	</div>
         <div class="row mb-5">
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
               <h2 class="ftco-heading-2">Vegefoods</h2>
-              <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
+              <p>Sản phẩm tươi sạch</p>
               <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
                 <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
                 <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
@@ -332,38 +325,35 @@ img {
           </div>
           <div class="col-md">
             <div class="ftco-footer-widget mb-4 ml-md-5">
-              <h2 class="ftco-heading-2">Menu</h2>
+              <h2 class="ftco-heading-2">Danh mục</h2>
               <ul class="list-unstyled">
-                <li><a href="#" class="py-2 d-block">Shop</a></li>
-                <li><a href="#" class="py-2 d-block">About</a></li>
-                <li><a href="#" class="py-2 d-block">Journal</a></li>
-                <li><a href="#" class="py-2 d-block">Contact Us</a></li>
+                <li><a href="shop.php" class="py-2 d-block">Cửa hàng</a></li>
+                <li><a href="about.php" class="py-2 d-block">Về chúng tôi</a></li>
+                <li><a href="blog.php" class="py-2 d-block">Tin tức</a></li>
+                <li><a href="contact.php" class="py-2 d-block">Liên hệ</a></li>
               </ul>
             </div>
           </div>
           <div class="col-md-4">
              <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">Help</h2>
+              <h2 class="ftco-heading-2">Hỗ trợ</h2>
               <div class="d-flex">
 	              <ul class="list-unstyled mr-l-5 pr-l-3 mr-4">
-	                <li><a href="#" class="py-2 d-block">Shipping Information</a></li>
-	                <li><a href="#" class="py-2 d-block">Returns &amp; Exchange</a></li>
-	                <li><a href="#" class="py-2 d-block">Terms &amp; Conditions</a></li>
-	                <li><a href="#" class="py-2 d-block">Privacy Policy</a></li>
+	                <li><a href="#" class="py-2 d-block">Thông tin vận chuyển</a></li>
+	                <li><a href="#" class="py-2 d-block">Trả hàng &amp; Hoàn tiền</a></li>
+	                <li><a href="#" class="py-2 d-block">Điểu khoản &amp; Quy định</a></li>
+	                <li><a href="#" class="py-2 d-block">Chính sách bảo mật</a></li>
 	              </ul>
-	              <ul class="list-unstyled">
-	                <li><a href="#" class="py-2 d-block">FAQs</a></li>
-	                <li><a href="#" class="py-2 d-block">Contact</a></li>
-	              </ul>
+	           
 	            </div>
             </div>
           </div>
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
-            	<h2 class="ftco-heading-2">Have a Questions?</h2>
+            	<h2 class="ftco-heading-2">Bạn có thắc mắc?</h2>
             	<div class="block-23 mb-3">
 	              <ul>
-	                <<li><span class="icon icon-map-marker"></span><span class="text">218, Minh Khai, Hai Bà Trưng, Hà Nội</span></li>
+	                <li><span class="icon icon-map-marker"></span><span class="text">218, Minh Khai, Hai Bà Trưng, Hà Nội</span></li>
 	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+0369852147</span></a></li>
 	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">quan@gmail.com</span></a></li>
 	              </ul>
